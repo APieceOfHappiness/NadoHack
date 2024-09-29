@@ -14,8 +14,8 @@ from pymystem3 import Mystem
 
 @dataclass
 class Feedback:
-    class1: str
-    class2: str
+    class_1: str
+    class_2: str
     answer: str
 
 
@@ -110,7 +110,7 @@ class PredictModel:
         pred_probs = self.logreg_high.predict_proba(tfidf_high_sent)[0]
         entropy = -np.sum(pred_probs * np.log(pred_probs))
         if entropy > 1.25:
-            return Feedback(class1="ОТСУТСТВУЕТ", class2="Отсутствует", answer="Не знаю")
+            return Feedback(class_1="ОТСУТСТВУЕТ", class_2="Отсутствует", answer="Не знаю")
 
         tfidf_2lvl_sent = self.model_level2[pred_level1][0].transform([sentence_stemming])
         pred_level2 = self.model_level2[pred_level1][1].predict(tfidf_2lvl_sent)[0]
@@ -147,7 +147,7 @@ class PredictModel:
         output_ids = output_ids[len(data["input_ids"][0]):]
         output = self.tokenizer.decode(output_ids, skip_special_tokens=True).strip()
         
-        return Feedback(class1=pred_level1, class2=pred_level2, answer=output)
+        return Feedback(class_1=pred_level1, class_2=pred_level2, answer=output)
 
 
 

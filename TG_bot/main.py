@@ -18,14 +18,14 @@ async def handle_message(update: Update, context):
             if server_answer == "Не знаю":
                 message = "Извините, я не могу ответить на ваш вопрос"
             else:
-                message = f"{responsed['class1']}\r\n{responsed['class2']}\r\n\r\n{server_answer}"
+                message = f"{responsed['class_1']}\r\n{responsed['class_2']}\r\n\r\n{server_answer}"
             await update.message.reply_text(message)
         else:
             await update.message.reply_text(f"Ошибка: {response.status_code}")
     except Exception as e:
         await update.message.reply_text(f"Произошла ошибка: {str(e)}")
 
-    add_to_db(question=user_message, class1=responsed.get('class1'), class2=responsed.get('class2'), answer=responsed.get('answer'))
+    add_to_db(question=user_message, class1=responsed.get('class_1'), class2=responsed.get('class_2'), answer=responsed.get('answer'))
 
 
 async def start_command(update: Update, context):
